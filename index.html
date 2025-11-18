@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pokedex</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" type="image/x-icon" href="/img/pokeball.png" />
+    </head>
+    <body
+        id="body"
+        onload="getData()"
+        onclick="closeDialog()" 
+    >
+        <header id="main-header">
+            <section id="header-width">
+                <div id="icon-section">
+                    <img id="home-BTN" src="./img/pokeball.png" onclick="refresh()" alt="Pokeball" />
+                    <h2 id="pokedex">Pokedex</h2>
+                </div>
+                <div id="search">
+                    <form onsubmit="inputRequest(); return false;">
+                        <input
+                            id="input-Field"
+                            placeholder="Pokemon"
+                            type="text"
+                            minlength="3"
+                            required
+                        />
+                        <button type="submit">Search</button>
+                    </form>
+                    <!-- <div id="found-pokemon"></div> -->
+                </div>
+            </section>
+        </header>
+
+        <main id="main-content">
+            <section id="content-witdh">
+            </section>
+        </main>
+
+        <dialog id="poke-dialog" class="dialog"></dialog>
+
+        <div id="loader-container">
+            <div class="loader"></div>
+        </div>
+
+        <footer id="main-footer">
+            <button id="first-btn" onclick="getData2(), loadingSpinner()">
+                Weiter Laden
+            </button>
+        </footer>
+
+        <script src="template.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
+

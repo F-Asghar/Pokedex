@@ -1,0 +1,268 @@
+* {
+    box-sizing: border-box;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    font-family: sans-serif;
+}
+
+.no-scroll {
+    overflow: hidden;
+    width: 100%;
+}
+
+#pokedex{
+    @media (max-width: 600px){
+        display: none;
+    }
+}
+
+#main-header {
+    background-color: #082129;
+    display: flex;
+    justify-content: center;
+}
+
+#header-width{
+    max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 90px;
+    width: 100%;
+    height: 12dvh;
+    color: white;
+
+    @media(max-width: 700px){
+        padding: 0px 50px;
+    }
+
+    @media(max-width: 480px){
+        padding: 0px 24px;
+    }
+}
+
+input {
+    height: 24px;
+    width: 200px;
+    color: black;
+    font-weight: bold;
+    padding: 4px;
+
+    @media (max-width: 400px){
+        width: 150px;
+    }
+}
+
+#home-BTN{
+    &:hover{
+        cursor: pointer;
+        filter: drop-shadow(5px 5px 10px white);
+    }
+}
+
+#icon-section {
+    height: 12dvh;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#main-content {
+    width: 100%;
+    background-color: #06151c;
+    display: flex;
+    justify-content: center;
+}
+
+#content-witdh{
+    width: 100%;
+    max-width: 1440px;
+    min-height: 76dvh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#empty{
+    color: white;
+    align-items: center;
+}
+
+
+.dialog {
+    z-index: 15;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    padding: 16px;
+    height: 600px;
+    width: 400px;
+    background-color: azure;
+}
+
+.dialog-img {
+    width: 180px;
+}
+
+.pokemon {
+    height: 200px;
+    width: 180px;
+    margin: 24px;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: azure;
+
+    &:hover {
+        cursor: pointer;
+        filter: drop-shadow(5px 5px 10px green);
+    }
+}
+
+.poke-main {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0px;
+}
+
+.poke-main-img {
+    width: 80px;
+}
+
+.type {
+    margin-left: 4px;
+}
+
+.poke-id-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+.poke-img {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0px;
+}
+
+.poke-element {
+    display: flex;
+    justify-content: center;
+    height: 16px;
+}
+
+.poke-nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 16px 0px;
+
+    p {
+        font-weight: bold;
+    }
+}
+
+.poke-table{
+    width: 100%;
+    height: 160px;
+    display: flex;
+    justify-content: flex-start;
+    
+    th{
+        margin-top: 6px;
+    }
+}
+
+#poke-dialog{
+    overflow: hidden;
+}
+
+.poke-data {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.switch-pokemon {
+    display: flex;
+    margin-top: 24px;
+    justify-content: space-between;
+}
+
+#prev-pokemon {
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+#next-pokemon {
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+#first-btn {
+    bottom: 8px;
+}
+
+
+#loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.loader {
+    position: fixed;
+    z-index: 10;
+    width: 120px;
+    height: 120px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#main-footer {
+    width: 100%;
+    height: 12dvh;
+    background-color: #082129;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
