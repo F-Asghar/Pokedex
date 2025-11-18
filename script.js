@@ -42,9 +42,7 @@ async function getData2() {
             for (const pokemon of pokemonList) {
             const detailsResponse = await fetch(pokemon.url);
             const pokeDetails = await detailsResponse.json();
-            // console.log("pokeditails:", pokeDetails);
             renderResult(pokeDetails);
-            // Problem!!
             ArrPokemon.push(pokeDetails);
         }
 }
@@ -270,7 +268,6 @@ function nextBtnTwo(nextButton){
         currentIndex2 = (currentIndex2 + 1) % searchedNames.length;
         const currentPokemon = searchedNames[currentIndex2];
         dialog.innerHTML = getDialogTemplate(currentPokemon);
-        console.log(searchedNames);
         pokemonTypeColor(currentPokemon);
         getAllElements2(currentPokemon);
         closeDialog();
@@ -302,8 +299,6 @@ function removeLoadingSpinner(){
 
 // #region request
 
-
-
 function inputRequest() {
     const inputRef = document.getElementById("input-Field");
     const requestedObject = inputRef.value.trim().toLowerCase();
@@ -315,7 +310,14 @@ function inputRequest() {
             searchedNames.push(ArrPokemon[i]);
         }
     }
-    for (let x = 0; x < searchedNames.length; x++) {
+    inputHelper(searchedNames);
+    hideBtn();
+    inputRef.value = "";
+}
+
+function inputHelper(searchedNames){
+    const contentContainer = document.getElementById("content-witdh");
+        for (let x = 0; x < searchedNames.length; x++) {
         contentContainer.innerHTML += getPokeTemplate(searchedNames[x]);
         getAllElements(searchedNames[x]);
         nextPrevTwo();
@@ -324,9 +326,6 @@ function inputRequest() {
     if (searchedNames.length === 0) {
         renderEmpty();
     }
-    console.log(searchedNames);
-    hideBtn();
-    inputRef.value = "";
 }
 
 // #endregion
