@@ -18,21 +18,18 @@ function getPokeTemplate(pokeDetails) {
 }
 
 function getDialogTemplate(currentPokemon){
-    return`             <div class="event-bubbling">
-            <section class="poke-cart">
-            <header class="poke-id-name">
-                <p>#${currentPokemon.id}</p>
-                <h3>${currentPokemon.name}</h3>
-            </header>
+    return`<div class="event-bubbling">
+            <section class="poke-card">
+                <header class="poke-id-name">
+                    <p>#${currentPokemon.id}</p>
+                    <h3>${currentPokemon.name}</h3>
+                </header>
             <div class="poke-img">
             <img class="dialog-img" src="${currentPokemon.sprites.other["official-artwork"].front_default}" alt="">
             </div>
             <div id="pokemon-elements-${currentPokemon.id}" class="poke-element">
             </div>
-            <main class="poke-information">
-                <nav class="poke-nav">
-                    <p>main</p>
-                </nav>
+            <main>
                 <div class="poke-table">
                 <table class="poke-data">
                     <tr>

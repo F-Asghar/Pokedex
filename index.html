@@ -16,7 +16,7 @@
             <section id="header-width">
                 <div id="icon-section">
                     <img id="home-BTN" src="./img/pokeball.png" onclick="refresh()" alt="Pokeball" />
-                    <h2 id="pokedex">Pokedex</h2>
+                    <h2 id="title">Pokedex</h2>
                 </div>
                 <div id="search">
                     <form onsubmit="inputRequest(); return false;">
@@ -27,9 +27,8 @@
                             minlength="3"
                             required
                         />
-                        <button type="submit">Search</button>
+                        <button id="search-button" type="submit">Search</button>
                     </form>
-                    <!-- <div id="found-pokemon"></div> -->
                 </div>
             </section>
         </header>

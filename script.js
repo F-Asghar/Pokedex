@@ -7,6 +7,7 @@ let offset = 0;
 // #region get Data
 
 async function getData() {
+    loadingSpinner();
     const url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=0`;
     try {
         const response = await fetch(url);
@@ -18,11 +19,13 @@ async function getData() {
         fetchData(pokemonList);
     } catch (error) {
         console.error(error);
+    } finally {
+        removeLoadingSpinner();
     }
 }
 
 async function getData2() {
-    const newOfset = offset += 20;
+    const newOfset = (offset += 20);
     const url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${newOfset}`;
     try {
         const response = await fetch(url);
@@ -34,17 +37,18 @@ async function getData2() {
         fetchData(pokemonList);
     } catch (error) {
         console.error(error);
+    } finally {
+        removeLoadingSpinner();
     }
-    removeLoadingSpinner();
 }
 
- async function fetchData(pokemonList){
-            for (const pokemon of pokemonList) {
-            const detailsResponse = await fetch(pokemon.url);
-            const pokeDetails = await detailsResponse.json();
-            renderResult(pokeDetails);
-            ArrPokemon.push(pokeDetails);
-        }
+async function fetchData(pokemonList) {
+    for (const pokemon of pokemonList) {
+        const detailsResponse = await fetch(pokemon.url);
+        const pokeDetails = await detailsResponse.json();
+        renderResult(pokeDetails);
+        ArrPokemon.push(pokeDetails);
+    }
 }
 
 // #endregion
@@ -61,10 +65,10 @@ function renderResult(pokeDetails) {
 
 function openDialog(id) {
     const openDialogRef = document.getElementById("poke-dialog");
-    currentIndex = ArrPokemon.findIndex(p => p.id == id);
+    currentIndex = ArrPokemon.findIndex((p) => p.id == id);
     let currentPokemon = ArrPokemon[currentIndex];
     if (searchedNames.length > 0) {
-        currentIndex2 = searchedNames.findIndex(p => p.id == id);
+        currentIndex2 = searchedNames.findIndex((p) => p.id == id);
         currentPokemon = searchedNames[currentIndex2];
     }
     openDialogRef.innerHTML = getDialogTemplate(currentPokemon);
@@ -78,26 +82,25 @@ function openDialog(id) {
     }
 }
 
-
 function closeDialog() {
-  const dialog = document.getElementById("poke-dialog");
-  const dialogContent = dialog.querySelector(".event-bubbling");
-  dialog.addEventListener("click", () => {
-    dialog.close();
-    document.body.classList.remove("no-scroll");
-  });
-  if (!dialog.open) return;
+    const dialog = document.getElementById("poke-dialog");
+    const dialogContent = dialog.querySelector(".event-bubbling");
+    dialog.addEventListener("click", () => {
+        dialog.close();
+        document.body.classList.remove("no-scroll");
+    });
+    if (!dialog.open) return;
     dialogContent.addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
+        event.stopPropagation();
+    });
 }
 
-function hideBtn(){
+function hideBtn() {
     const hideBtnRef = document.getElementById("first-btn");
     hideBtnRef.style.display = "none";
 }
 
-function renderEmpty(){
+function renderEmpty() {
     const contentContainer = document.getElementById("content-witdh");
     contentContainer.innerHTML = getEmptyTemplate();
     hideBtn();
@@ -112,32 +115,34 @@ function getAllElements(pokeDetails) {
     elements.innerHTML = "";
 
     for (let index = 0; index < pokeDetails.types.length; index++) {
-        const element = pokeDetails.types[index].type.name;        
+        const element = pokeDetails.types[index].type.name;
         elements.innerHTML += getTypeTemplate(element);
         if (index < pokeDetails.types.length - 1) {
-            elements.innerHTML += ", "; 
+            elements.innerHTML += ", ";
         }
     }
 }
 
 function getAllElements2(currentPokemon) {
-    const elements = document.getElementById(`pokemon-elements-${currentPokemon.id}`);
+    const elements = document.getElementById(
+        `pokemon-elements-${currentPokemon.id}`,
+    );
     elements.innerHTML = "";
 
     for (let index = 0; index < currentPokemon.types.length; index++) {
-        const element = currentPokemon.types[index].type.name;  
+        const element = currentPokemon.types[index].type.name;
         elements.innerHTML += getTypeTemplate(element);
         if (index < currentPokemon.types.length - 1) {
-            elements.innerHTML += ", "; 
+            elements.innerHTML += ", ";
         }
     }
 }
 
-function getAllAbilities(ArrAbilities){
+function getAllAbilities(ArrAbilities) {
     let abilities = "";
     let cnt = 0;
     for (const abilitie of ArrAbilities) {
-        if(cnt > 0){
+        if (cnt > 0) {
             abilities += ",";
         }
         abilities += abilitie.ability.name;
@@ -146,51 +151,66 @@ function getAllAbilities(ArrAbilities){
     return abilities;
 }
 
-function pokemonTypeColor(pokeDetails) {
+function getPokemonColor(pokeDetails) {
     let type = pokeDetails.types[0].type.name;
     let color = "";
-    if(type == "grass"){
+
+    if (type == "grass") {
         color = "#097969";
-    } else if(type == "fire"){
+    } else if (type == "fire") {
         color = "#F08030";
-    } else if(type == "water"){
+    } else if (type == "water") {
         color = "#6890F0";
-    } else if(type == "ground"){
+    } else if (type == "ground") {
         color = "#BD9237";
-    } else if(type == "poison"){
+    } else if (type == "poison") {
         color = "#F85888";
-    } else if(type == "bug"){
+    } else if (type == "bug") {
         color = "#99D681";
-    } else if(type == "normal"){
+    } else if (type == "normal") {
         color = "#C4C4C4";
-    } else if(type == "electric"){
+    } else if (type == "electric") {
         color = "#DFFF00";
-    } else if(type == "fairy"){
+    } else if (type == "fairy") {
         color = "#FF08F7";
-    } else if(type == "fighting"){
+    } else if (type == "fighting") {
         color = "#FF0303";
-    } else if(type == "psychic"){
-        color = "#ed00edff"
-    } else if(type == "rock"){
-        color = "#221f22ff"
+    } else if (type == "psychic") {
+        color = "#ed00edff";
+    } else if (type == "rock") {
+        color = "#221f22ff";
     } else {
-        color = "";
-    } 
-    const card = document.getElementById(`poke-card-${pokeDetails.id}`);
-    if(card){
-        card.style.backgroundColor = color;
+        color = "#C4C4C4";
     }
+
+    return color;
+}
+
+function getPokemonCardById(pokemonId) {
+    return document.getElementById(`poke-card-${pokemonId}`);
+}
+
+function pokemonTypeColor(pokeDetails) {
+    const color = getPokemonColor(pokeDetails);
+    const card = getPokemonCardById(pokeDetails.id);
     const dialog = document.getElementById("poke-dialog");
-    if(dialog.open){
+
+    if (card) {
+        let pokeColor = card.querySelector(".poke-main");
+        if (pokeColor) {
+            pokeColor.style.backgroundColor = color;
+        }
+    }
+    if (dialog && dialog.open) {
         dialog.style.backgroundColor = color;
     }
 }
 
-function noScroll(){
-    document.body.classList.add("no-scroll"); 
+function noScroll() {
+    document.body.classList.add("no-scroll");
 }
 
-function refresh(){
+function refresh() {
     const contentContainer = document.getElementById("content-witdh");
     contentContainer.innerHTML = "";
     ArrPokemon = [];
@@ -213,10 +233,11 @@ function nextPrev() {
     nextBtn(nextButton);
 }
 
-function prevBtn(prevButton){
+function prevBtn(prevButton) {
     const dialog = document.getElementById("poke-dialog");
     prevButton.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + ArrPokemon.length) % ArrPokemon.length;
+        currentIndex =
+            (currentIndex - 1 + ArrPokemon.length) % ArrPokemon.length;
         const currentPokemon = ArrPokemon[currentIndex];
         dialog.innerHTML = getDialogTemplate(currentPokemon);
         pokemonTypeColor(currentPokemon);
@@ -226,7 +247,7 @@ function prevBtn(prevButton){
     });
 }
 
-function nextBtn(nextButton){
+function nextBtn(nextButton) {
     const dialog = document.getElementById("poke-dialog");
     nextButton.addEventListener("click", () => {
         currentIndex = (currentIndex + 1) % ArrPokemon.length;
@@ -250,10 +271,11 @@ function nextPrevTwo() {
     nextBtnTwo(nextButtonTwo);
 }
 
-function prevBtnTwo(prevButtonTwo){
+function prevBtnTwo(prevButtonTwo) {
     const dialog = document.getElementById("poke-dialog");
     prevButtonTwo.addEventListener("click", () => {
-        currentIndex2 = (currentIndex2 - 1 + searchedNames.length) % searchedNames.length;
+        currentIndex2 =
+            (currentIndex2 - 1 + searchedNames.length) % searchedNames.length;
         dialog.innerHTML = getDialogTemplate(currentPokemon);
         pokemonTypeColor(currentPokemon);
         getAllElements2(currentPokemon);
@@ -262,7 +284,7 @@ function prevBtnTwo(prevButtonTwo){
     });
 }
 
-function nextBtnTwo(nextButton){
+function nextBtnTwo(nextButton) {
     const dialog = document.getElementById("poke-dialog");
     nextButton.addEventListener("click", () => {
         currentIndex2 = (currentIndex2 + 1) % searchedNames.length;
@@ -281,18 +303,18 @@ function nextBtnTwo(nextButton){
 
 // #region loading
 
-function loadingSpinner(){
-    const spinnerRef =  document.getElementById("loader-container");
+function loadingSpinner() {
+    const spinnerRef = document.getElementById("loader-container");
     spinnerRef.style.display = "flex";
     noScroll();
 }
 
-function removeLoadingSpinner(){
-    setTimeout(function() {
-    const spinnerRef =  document.getElementById("loader-container");
-    spinnerRef.style.display = "none";
-    document.body.classList.remove("no-scroll");
-}, 2000);
+function removeLoadingSpinner() {
+    setTimeout(function () {
+        const spinnerRef = document.getElementById("loader-container");
+        spinnerRef.style.display = "none";
+        document.body.classList.remove("no-scroll");
+    }, 2000);
 }
 
 // #endregion
@@ -306,7 +328,9 @@ function inputRequest() {
     searchedNames = [];
     contentContainer.innerHTML = "";
     for (let i = 0; i < ArrPokemon.length; i++) {
-        if (ArrPokemon[i].species.name.toLowerCase().includes(requestedObject)) {
+        if (
+            ArrPokemon[i].species.name.toLowerCase().includes(requestedObject)
+        ) {
             searchedNames.push(ArrPokemon[i]);
         }
     }
@@ -315,9 +339,9 @@ function inputRequest() {
     inputRef.value = "";
 }
 
-function inputHelper(searchedNames){
+function inputHelper(searchedNames) {
     const contentContainer = document.getElementById("content-witdh");
-        for (let x = 0; x < searchedNames.length; x++) {
+    for (let x = 0; x < searchedNames.length; x++) {
         contentContainer.innerHTML += getPokeTemplate(searchedNames[x]);
         getAllElements(searchedNames[x]);
         nextPrevTwo();
