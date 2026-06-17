@@ -113,7 +113,6 @@ function renderEmpty() {
 function getAllElements(pokeDetails) {
     const elements = document.getElementById(`poke-elements-${pokeDetails.id}`);
     elements.innerHTML = "";
-
     for (let index = 0; index < pokeDetails.types.length; index++) {
         const element = pokeDetails.types[index].type.name;
         elements.innerHTML += getTypeTemplate(element);
@@ -142,6 +141,7 @@ function getAllAbilities(ArrAbilities) {
     let abilities = "";
     let cnt = 0;
     for (const abilitie of ArrAbilities) {
+        if (cnt >= 2) break;
         if (cnt > 0) {
             abilities += ",";
         }
@@ -194,6 +194,7 @@ function pokemonTypeColor(pokeDetails) {
     const color = getPokemonColor(pokeDetails);
     const card = getPokemonCardById(pokeDetails.id);
     const dialog = document.getElementById("poke-dialog");
+    const pokeDialogColor = document.querySelector(".poke-img");
 
     if (card) {
         let pokeColor = card.querySelector(".poke-main");
@@ -202,7 +203,7 @@ function pokemonTypeColor(pokeDetails) {
         }
     }
     if (dialog && dialog.open) {
-        dialog.style.backgroundColor = color;
+        pokeDialogColor.style.backgroundColor = color;
     }
 }
 

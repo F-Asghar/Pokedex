@@ -29,7 +29,7 @@ function getDialogTemplate(currentPokemon){
             </div>
             <div id="pokemon-elements-${currentPokemon.id}" class="poke-element">
             </div>
-            <main>
+            <div class="main-data">
                 <div class="poke-table">
                 <table class="poke-data">
                     <tr>
@@ -50,11 +50,11 @@ function getDialogTemplate(currentPokemon){
                     </tr>
                 </table>
                 </div>
-            </main>
+            </div>
         </section>
         <section class="switch-pokemon">
-            <button id="dialog-prev">Preview</button>
-            <button id="dialog-next">Next</button>
+            <button id="dialog-prev" class="dialog-prev-next"><img src="./img/arrow-left.png" alt=""></button>
+            <button id="dialog-next" class="dialog-prev-next"><img src="./img/arrow-right.png" alt=""></button>
         </section>
         </div>   `
 }
